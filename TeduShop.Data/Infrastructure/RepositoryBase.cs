@@ -125,6 +125,12 @@ namespace TeduShop.Data.Infrastructure
             return dbSet.Where(where).ToList();
         }
 
+        public virtual void Delete(int id)
+        {
+            var entity = dbSet.Find(id);
+            dbSet.Remove(entity);
+        }
+
 
         #endregion
     }
