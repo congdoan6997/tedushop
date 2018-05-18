@@ -24,9 +24,9 @@ namespace TeduShop.Data.Infrastructure
         }
         #region Implementation  
 
-        public virtual void Add(T entity)
+        public virtual T Add(T entity)
         {
-            dbSet.Add(entity);
+           return dbSet.Add(entity);
         }
 
         public virtual bool CheckContains(Expression<Func<T, bool>> predicate)
@@ -39,9 +39,9 @@ namespace TeduShop.Data.Infrastructure
             return dbSet.Count(where);
         }
 
-        public virtual void Delete(T entity)
+        public virtual T Delete(T entity)
         {
-            dbSet.Remove(entity);
+            return dbSet.Remove(entity);
         }
 
         public virtual void DeleteMulti(Expression<Func<T, bool>> where)
@@ -53,7 +53,7 @@ namespace TeduShop.Data.Infrastructure
             }
         }
 
-        public virtual IQueryable<T> GetAll(string[] includes = null)
+        public virtual IEnumerable<T> GetAll(string[] includes = null)
         {
             if (includes != null && includes.Count() > 0)
             {
@@ -67,7 +67,7 @@ namespace TeduShop.Data.Infrastructure
             return dataContext.Set<T>().AsQueryable();
         }
 
-        public virtual IQueryable<T> GetMulti(Expression<Func<T, bool>> predicate, string[] includes = null)
+        public virtual IEnumerable<T> GetMulti(Expression<Func<T, bool>> predicate, string[] includes = null)
         {
             if (includes != null && includes.Count() > 0)
             {
@@ -82,7 +82,7 @@ namespace TeduShop.Data.Infrastructure
 
         }
 
-        public virtual IQueryable<T> GetMultiPaging(Expression<Func<T, bool>> filter, out int total, int index = 0, int size = 20, string[] includes = null)
+        public virtual IEnumerable<T> GetMultiPaging(Expression<Func<T, bool>> filter, out int total, int index = 0, int size = 20, string[] includes = null)
         {
             int skipCount = index * size;
             IQueryable<T> _resetSet;
@@ -106,7 +106,16 @@ namespace TeduShop.Data.Infrastructure
 
         public virtual T GetSingleByCondition(Expression<Func<T, bool>> expression, string[] includes = null)
         {
-            return GetAll(includes).FirstOrDefault(expression);
+            if (includes != null && includes.Count() > 0)
+            {
+                var query = dataContext.Set<T>().Include(includes.First());
+                foreach (var include in includes.Skip(1))
+                {
+                    query = query.Include(include);
+                }
+                return query.FirstOrDefault(expression);
+            }
+            return dataContext.Set<T>().FirstOrDefault(expression);
         }
 
         public virtual T GetSingleById(int id)
@@ -125,10 +134,10 @@ namespace TeduShop.Data.Infrastructure
             return dbSet.Where(where).ToList();
         }
 
-        public virtual void Delete(int id)
+        public virtual T Delete(int id)
         {
             var entity = dbSet.Find(id);
-            dbSet.Remove(entity);
+           return dbSet.Remove(entity);
         }
 
 
