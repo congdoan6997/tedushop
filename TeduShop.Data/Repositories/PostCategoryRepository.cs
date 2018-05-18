@@ -9,11 +9,11 @@ using TeduShop.Model.Models;
 namespace TeduShop.Data.Repositories
 {
 
-    public interface IPostCategory:IRepository<PostCategory>
+    public interface IPostCategoryRepository:IRepository<PostCategory>
     {
 
     }
-    public class PostCategoryRepository : RepositoryBase<PostCategory>,IPostCategory
+    public class PostCategoryRepository : RepositoryBase<PostCategory>, IPostCategoryRepository
     {
         public PostCategoryRepository(IDbFactory dbFactory) : base(dbFactory)
         {
