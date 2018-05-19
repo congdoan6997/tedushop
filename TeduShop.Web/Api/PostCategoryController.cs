@@ -1,34 +1,39 @@
-﻿using System;
+﻿using AutoMapper;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using TeduShop.Model.Models;
 using TeduShop.Service;
 using TeduShop.Web.Infrastructure.Core;
+using TeduShop.Web.Models;
+using TeduShop.Web.Infrastructure.Extensions;
 
 namespace TeduShop.Web.Api
 {
     [RoutePrefix("api/postcategory")]
     public class PostCategoryController : ApiControllerBase
     {
-        IPostCategoryService _postCategoryService;
-        public PostCategoryController(IErrorService errorService,IPostCategoryService postCategoryService) : base(errorService)
+        private IPostCategoryService _postCategoryService;
+
+        public PostCategoryController(IErrorService errorService, IPostCategoryService postCategoryService) : base(errorService)
         {
             this._postCategoryService = postCategoryService;
         }
+
         [Route("Getall")]
         public HttpResponseMessage Get(HttpRequestMessage httpRequestMessage)
         {
             return CreateHttpResponse(httpRequestMessage, () =>
             {
-                    var categories = this._postCategoryService.GetAll();
-                    return httpRequestMessage.CreateResponse(HttpStatusCode.OK, categories);
+                var categories = this._postCategoryService.GetAll();
 
+                var listPostCategoryVM = Mapper.Map<List<PostCategoryViewModel>>(categories);
+                return httpRequestMessage.CreateResponse(HttpStatusCode.OK, listPostCategoryVM);
             });
         }
-        public HttpResponseMessage Post(HttpRequestMessage httpRequestMessage, PostCategory postCategory)
+        [Route("Add")]
+        public HttpResponseMessage Post(HttpRequestMessage httpRequestMessage, PostCategoryViewModel postCategoryViewModel)
         {
             return CreateHttpResponse(httpRequestMessage, () =>
             {
@@ -39,15 +44,18 @@ namespace TeduShop.Web.Api
                 }
                 else
                 {
-                   var category = this._postCategoryService.Add(postCategory);
+                    PostCategory postCategory = new PostCategory();
+                    postCategory.UpdatePostCategory(postCategoryViewModel);
+
+                    var category = this._postCategoryService.Add(postCategory);
                     this._postCategoryService.Save();
                     httpResponseMessage = httpRequestMessage.CreateResponse(HttpStatusCode.Created, category);
                 }
                 return httpResponseMessage;
             });
         }
-
-        public HttpResponseMessage Put(HttpRequestMessage httpRequestMessage, PostCategory postCategory)
+        [Route("Update")]
+        public HttpResponseMessage Put(HttpRequestMessage httpRequestMessage, PostCategoryViewModel postCategoryViewModel)
         {
             return CreateHttpResponse(httpRequestMessage, () =>
             {
@@ -58,6 +66,10 @@ namespace TeduShop.Web.Api
                 }
                 else
                 {
+
+                    var postCategory = this._postCategoryService.GetById(postCategoryViewModel.ID);
+                    postCategory.UpdatePostCategory(postCategoryViewModel);
+
                     this._postCategoryService.Update(postCategory);
                     this._postCategoryService.Save();
                     httpResponseMessage = httpRequestMessage.CreateResponse(HttpStatusCode.OK);
@@ -65,6 +77,7 @@ namespace TeduShop.Web.Api
                 return httpResponseMessage;
             });
         }
+
         public HttpResponseMessage Delete(HttpRequestMessage httpRequestMessage, int id)
         {
             return CreateHttpResponse(httpRequestMessage, () =>
@@ -76,15 +89,12 @@ namespace TeduShop.Web.Api
                 }
                 else
                 {
-                  this._postCategoryService.Delete(id);
+                    this._postCategoryService.Delete(id);
                     this._postCategoryService.Save();
                     httpResponseMessage = httpRequestMessage.CreateResponse(HttpStatusCode.OK);
                 }
                 return httpResponseMessage;
             });
         }
-
-
-
     }
 }
