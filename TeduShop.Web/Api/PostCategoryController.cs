@@ -23,17 +23,9 @@ namespace TeduShop.Web.Api
         {
             return CreateHttpResponse(httpRequestMessage, () =>
             {
-                HttpResponseMessage httpResponseMessage = null;
-                if (ModelState.IsValid)
-                {
-                    httpRequestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-                }
-                else
-                {
                     var categories = this._postCategoryService.GetAll();
-                    httpResponseMessage = httpRequestMessage.CreateResponse(HttpStatusCode.OK, categories);
-                }
-                return httpResponseMessage;
+                    return httpRequestMessage.CreateResponse(HttpStatusCode.OK, categories);
+
             });
         }
         public HttpResponseMessage Post(HttpRequestMessage httpRequestMessage, PostCategory postCategory)
