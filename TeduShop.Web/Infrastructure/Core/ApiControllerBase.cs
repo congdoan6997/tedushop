@@ -67,7 +67,7 @@ namespace TeduShop.Web.Infrastructure.Core
             }
             catch
             {
-               // throw;
+               throw;
             }
         }
     }
