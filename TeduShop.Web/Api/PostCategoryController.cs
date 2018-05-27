@@ -29,6 +29,7 @@ namespace TeduShop.Web.Api
                 var categories = this._postCategoryService.GetAll();
 
                 var listPostCategoryVM = Mapper.Map<List<PostCategoryViewModel>>(categories);
+
                 return httpRequestMessage.CreateResponse(HttpStatusCode.OK, listPostCategoryVM);
             });
         }
@@ -38,7 +39,7 @@ namespace TeduShop.Web.Api
             return CreateHttpResponse(httpRequestMessage, () =>
             {
                 HttpResponseMessage httpResponseMessage = null;
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
                     httpRequestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
@@ -48,7 +49,7 @@ namespace TeduShop.Web.Api
                     postCategory.UpdatePostCategory(postCategoryViewModel);
 
                     var category = this._postCategoryService.Add(postCategory);
-                    this._postCategoryService.Save();
+                    this._postCategoryService.SaveChanges();
                     httpResponseMessage = httpRequestMessage.CreateResponse(HttpStatusCode.Created, category);
                 }
                 return httpResponseMessage;
@@ -60,7 +61,7 @@ namespace TeduShop.Web.Api
             return CreateHttpResponse(httpRequestMessage, () =>
             {
                 HttpResponseMessage httpResponseMessage = null;
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
                     httpRequestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
@@ -71,26 +72,26 @@ namespace TeduShop.Web.Api
                     postCategory.UpdatePostCategory(postCategoryViewModel);
 
                     this._postCategoryService.Update(postCategory);
-                    this._postCategoryService.Save();
+                    this._postCategoryService.SaveChanges();
                     httpResponseMessage = httpRequestMessage.CreateResponse(HttpStatusCode.OK);
                 }
                 return httpResponseMessage;
             });
         }
-
+        [Route("Delete")]
         public HttpResponseMessage Delete(HttpRequestMessage httpRequestMessage, int id)
         {
             return CreateHttpResponse(httpRequestMessage, () =>
             {
                 HttpResponseMessage httpResponseMessage = null;
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
                     httpRequestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
                 else
                 {
                     this._postCategoryService.Delete(id);
-                    this._postCategoryService.Save();
+                    this._postCategoryService.SaveChanges();
                     httpResponseMessage = httpRequestMessage.CreateResponse(HttpStatusCode.OK);
                 }
                 return httpResponseMessage;

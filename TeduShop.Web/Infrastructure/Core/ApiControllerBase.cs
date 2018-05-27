@@ -63,7 +63,7 @@ namespace TeduShop.Web.Infrastructure.Core
                     StackTrace = exception.StackTrace
                 };
                 this._errorService.Create(error);
-                this._errorService.Save();
+                this._errorService.SaveChanges();
             }
             catch
             {

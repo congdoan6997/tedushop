@@ -12,7 +12,7 @@ namespace TeduShop.Service
     public interface IErrorService
     {
         Error Create(Error error);
-        void Save();
+        void SaveChanges();
     }
     public class ErrorService : IErrorService
     {
@@ -28,7 +28,7 @@ namespace TeduShop.Service
             return _errorRepository.Add(error);
         }
 
-        public void Save()
+        public void SaveChanges()
         {
             _unitOfWork.Commit();
         }

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace TeduShop.Web.Models
 {
     public class TagViewModel
     {
-
         public string ID { get; set; }
 
         public string Name { get; set; }
