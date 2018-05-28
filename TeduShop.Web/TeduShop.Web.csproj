@@ -1828,6 +1828,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\db.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2049,6 +2050,7 @@
     <Content Include="Assets\admin\libs\angular\README.md" />
     <None Include="packages.config" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Resources\adminlte_v2.4.2.zip" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TeduShop.Common\TeduShop.Common.csproj">
