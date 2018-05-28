@@ -20,6 +20,11 @@ namespace TeduShop.Web.Mappings
             Mapper.CreateMap<PostCategory, PostCategoryViewModel>();
             Mapper.CreateMap<Post, PostViewModel>();
             Mapper.CreateMap<PostTag, PostTagViewModel>();
+            Mapper.CreateMap<Product, ProductViewModel>();
+            Mapper.CreateMap<ProductCategory, ProductCategoryViewModel>();
+            Mapper.CreateMap<ProductTag, ProductTagViewModel>();
+            Mapper.CreateMap<Order, OrderViewModel>();
+            Mapper.CreateMap<OrderDetail, OrderDetailViewModel>();
 #pragma warning restore CS0618 // Type or member is obsolete
         }
     }
