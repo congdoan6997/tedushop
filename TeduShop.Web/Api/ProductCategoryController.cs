@@ -1,23 +1,21 @@
 ﻿using AutoMapper;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using TeduShop.Model.Models;
 using TeduShop.Service;
 using TeduShop.Web.Infrastructure.Core;
 using TeduShop.Web.Models;
-using TeduShop.Web.Infrastructure.Extensions;
+
 namespace TeduShop.Web.Api
 {
     [RoutePrefix("api/productcategory")]
     public class ProductCategoryController : ApiControllerBase
     {
-        IProductCategoryService _productCategoryService;
-        IErrorService _errorService;
-        public ProductCategoryController(IErrorService errorService,IProductCategoryService productCategoryService) : base(errorService)
+        private IProductCategoryService _productCategoryService;
+        private IErrorService _errorService;
+
+        public ProductCategoryController(IErrorService errorService, IProductCategoryService productCategoryService) : base(errorService)
         {
             this._errorService = errorService;
             this._productCategoryService = productCategoryService;
