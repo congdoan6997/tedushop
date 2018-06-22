@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -22,13 +24,25 @@ namespace TeduShop.Web.Api
         }
 
         [Route("Getall")]
-        public HttpResponseMessage Get(HttpRequestMessage httpRequestMessage)
+        public HttpResponseMessage Get(HttpRequestMessage httpRequestMessage, int page, int pageSize = 0)
         {
             return CreateHttpResponse(httpRequestMessage, () =>
             {
+                int totalRow = 0;
                 var categories = this._productCategoryService.GetAll();
-                var list = Mapper.Map<List<ProductCategoryViewModel>>(categories);
-                return httpRequestMessage.CreateResponse(HttpStatusCode.OK, list);
+                totalRow = categories.Count();
+                var query = categories.OrderByDescending(x => x.CreatedDate).Skip(page * pageSize).Take(pageSize);
+
+                var list = Mapper.Map<List<ProductCategoryViewModel>>(query);
+
+                var pagination = new PaginationSet<ProductCategoryViewModel>()
+                {
+                    Items = list,
+                    Page = page,
+                    TotalCount = totalRow,
+                    TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize)
+                };
+                return httpRequestMessage.CreateResponse(HttpStatusCode.OK, pagination);
             });
         }
 
