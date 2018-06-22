@@ -17,6 +17,8 @@ namespace TeduShop.Service
 
         IEnumerable<ProductCategory> GetAllByParentId(int parentId);
 
+        IEnumerable<ProductCategory> GetAll(string keyword);
+
         ProductCategory GetById(int id);
 
         void SaveChanges();
@@ -46,6 +48,15 @@ namespace TeduShop.Service
         public IEnumerable<ProductCategory> GetAll()
         {
             return this._productCategoryRepository.GetAll();
+        }
+
+        public IEnumerable<ProductCategory> GetAll(string keyword)
+        {
+            if (string.IsNullOrEmpty(keyword))
+            {
+                return this._productCategoryRepository.GetAll();
+            }
+            return this._productCategoryRepository.GetMulti(c => c.Name.Contains(keyword) || c.MetaDescription.Contains(keyword));
         }
 
         public IEnumerable<ProductCategory> GetAllByParentId(int parentId)
