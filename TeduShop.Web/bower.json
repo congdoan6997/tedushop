@@ -9,6 +9,10 @@
     "ionicons": "v2.0.0",
     "jquery": "v3.3.1",
     "jquery-slimscroll": "v1.3.8",
-    "fastclick": "v1.0.6"
+    "fastclick": "v1.0.6",
+    "toastr": "~2.1.2"
+  },
+  "resolutions": {
+    "jquery": "v3.3.1"
   }
 }
