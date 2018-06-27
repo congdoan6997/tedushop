@@ -24,13 +24,17 @@
                 }
             };
             apiService.get('/api/productcategory/getall', config, function (result) {
+                if (result.data.TotalCount == 0) {
+                    notificationService.displayWarning('Không có bản ghi nào được tìm thấy.');
+                }
+                else {
+                    notificationService.displaySuccess('Đã tìm thấy ' + result.data.TotalCount + ' bản ghi.');
+                }
                 $scope.productCategories = result.data.Items;
                 $scope.page = result.data.Page;
                 $scope.totalCount = result.data.TotalCount;
                 $scope.pagesCount = result.data.TotalPages;
-                if ($scope.totalCount == 0) {
-                    notificationService.displayWarning("Không tìm thấy bản ghi nào!");                   
-                }
+
 
             }, function () {
                 console.log('Get product categories failed!')

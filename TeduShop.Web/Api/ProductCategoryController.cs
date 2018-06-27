@@ -5,8 +5,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using TeduShop.Model.Models;
 using TeduShop.Service;
 using TeduShop.Web.Infrastructure.Core;
+using TeduShop.Web.Infrastructure.Extensions;
 using TeduShop.Web.Models;
 
 namespace TeduShop.Web.Api
@@ -24,7 +26,7 @@ namespace TeduShop.Web.Api
         }
 
         [Route("Getall")]
-        public HttpResponseMessage Get(HttpRequestMessage httpRequestMessage,string keyword, int page, int pageSize = 0)
+        public HttpResponseMessage Get(HttpRequestMessage httpRequestMessage, string keyword, int page, int pageSize = 0)
         {
             return CreateHttpResponse(httpRequestMessage, () =>
             {
@@ -45,6 +47,27 @@ namespace TeduShop.Web.Api
                 return httpRequestMessage.CreateResponse(HttpStatusCode.OK, pagination);
             });
         }
+
+        //public HttpResponseMessage Create(HttpRequestMessage httpRequestMessage, ProductCategoryViewModel productCategoryViewModel)
+        //{
+        //    return CreateHttpResponse(httpRequestMessage, () =>
+        //    {
+        //        HttpResponseMessage responseMessage = null;
+        //        if (!ModelState.IsValid)
+        //        {
+        //            responseMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+        //        }
+        //        else
+        //        {
+        //            var newProductCategory = new ProductCategory();
+        //            newProductCategory.UpdateProductCategory(productCategoryViewModel);
+        //            this._productCategoryService.Add(newProductCategory);
+        //            this._productCategoryService.SaveChanges();
+        //        }
+
+        //        return responseMessage;
+        //    });
+        //}
 
         //public HttpResponseMessage Post(HttpRequestMessage httpRequestMessage, ProductCategoryViewModel productCategoryViewModel)
         //{

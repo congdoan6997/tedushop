@@ -4,13 +4,21 @@
     app.factory('notificationService', notificationService);
     function notificationService() {
         toastr.options = {
+            "closeButton": false,
             "debug": false,
-            "positionClass": "toastr-top-right",
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
             "onclick": null,
-            "fadeIn": 300,
-            "fadeOut": 1000,
-            "timeOut": 3000,
-            "extendedTimeOut": 1000
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
 
         };
         function displaySuccess(message) {
