@@ -26,6 +26,7 @@ namespace TeduShop.Web.Api
         }
 
         [Route("Getall")]
+        [HttpGet]
         public HttpResponseMessage Get(HttpRequestMessage httpRequestMessage, string keyword, int page, int pageSize = 0)
         {
             return CreateHttpResponse(httpRequestMessage, () =>
@@ -48,26 +49,45 @@ namespace TeduShop.Web.Api
             });
         }
 
-        //public HttpResponseMessage Create(HttpRequestMessage httpRequestMessage, ProductCategoryViewModel productCategoryViewModel)
-        //{
-        //    return CreateHttpResponse(httpRequestMessage, () =>
-        //    {
-        //        HttpResponseMessage responseMessage = null;
-        //        if (!ModelState.IsValid)
-        //        {
-        //            responseMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-        //        }
-        //        else
-        //        {
-        //            var newProductCategory = new ProductCategory();
-        //            newProductCategory.UpdateProductCategory(productCategoryViewModel);
-        //            this._productCategoryService.Add(newProductCategory);
-        //            this._productCategoryService.SaveChanges();
-        //        }
+        [Route("Getallparents")]
+        [HttpGet]
+        public HttpResponseMessage Get(HttpRequestMessage httpRequestMessage)
+        {
+            return CreateHttpResponse(httpRequestMessage, () =>
+            {
 
-        //        return responseMessage;
-        //    });
-        //}
+                var categories = this._productCategoryService.GetAll();
+
+                var list = Mapper.Map<List<ProductCategoryViewModel>>(categories);
+
+                return httpRequestMessage.CreateResponse(HttpStatusCode.OK, list);
+            });
+        }
+        [Route("create")]
+        [HttpPost]
+        public HttpResponseMessage Create(HttpRequestMessage httpRequestMessage, ProductCategoryViewModel productCategoryViewModel)
+        {
+            return CreateHttpResponse(httpRequestMessage, () =>
+            {
+                HttpResponseMessage responseMessage = null;
+                if (!ModelState.IsValid)
+                {
+                   responseMessage = httpRequestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    var newProductCategory = new ProductCategory();
+                    newProductCategory.UpdateProductCategory(productCategoryViewModel);
+
+                    var category = this._productCategoryService.Add(newProductCategory);
+                    this._productCategoryService.SaveChanges();
+
+                    responseMessage = httpRequestMessage.CreateResponse(HttpStatusCode.OK, category);
+                }
+
+                return responseMessage;
+            });
+        }
 
         //public HttpResponseMessage Post(HttpRequestMessage httpRequestMessage, ProductCategoryViewModel productCategoryViewModel)
         //{

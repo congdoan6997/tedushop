@@ -41,7 +41,7 @@ namespace TeduShop.Web.Api
                 HttpResponseMessage httpResponseMessage = null;
                 if (!ModelState.IsValid)
                 {
-                    httpRequestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                    httpResponseMessage = httpRequestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
                 else
                 {
@@ -63,7 +63,7 @@ namespace TeduShop.Web.Api
                 HttpResponseMessage httpResponseMessage = null;
                 if (!ModelState.IsValid)
                 {
-                    httpRequestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                    httpResponseMessage = httpRequestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
                 else
                 {

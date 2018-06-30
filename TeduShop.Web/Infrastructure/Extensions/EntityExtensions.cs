@@ -7,6 +7,8 @@ namespace TeduShop.Web.Infrastructure.Extensions
     {
         public static void UpdatePostCategory(this PostCategory postCategory, PostCategoryViewModel postCategoryViewModel)
         {
+            #region properties
+
             //      public int ID { get; set; }
 
             //public string Name { get; set; }
@@ -55,6 +57,7 @@ namespace TeduShop.Web.Infrastructure.Extensions
             //public string MetaDescription { get; set; }
 
             //public bool Status { get; set; }
+# endregion
             postCategory.ID = postCategoryViewModel.ID;
             postCategory.Name = postCategoryViewModel.Name;
             postCategory.Alias = postCategoryViewModel.Alias;
@@ -64,6 +67,7 @@ namespace TeduShop.Web.Infrastructure.Extensions
             postCategory.Image = postCategoryViewModel.Image;
             postCategory.HomFlag = postCategoryViewModel.HomFlag;
 
+            postCategory.CreatedDate = postCategoryViewModel.CreatedDate;
             postCategory.CreatedBy = postCategoryViewModel.CreatedBy;
             postCategory.UpdatedDate = postCategoryViewModel.UpdatedDate;
             postCategory.UpdatedBy = postCategoryViewModel.UpdatedBy;
@@ -71,6 +75,77 @@ namespace TeduShop.Web.Infrastructure.Extensions
             postCategory.MetaDescription = postCategoryViewModel.MetaDescription;
             postCategory.Status = postCategoryViewModel.Status;
         }
+
+        public static void UpdateProductCategory(this ProductCategory productCategory, ProductCategoryViewModel productCategoryViewModel)
+        {
+            #region properties
+
+            //      public int ID { get; set; }
+
+            //public string Name { get; set; }
+
+            //public string Alias { get; set; }
+
+            //public string Description { get; set; }
+            //public int? ParentID { get; set; }
+            //public int? DisplayOrder { get; set; }
+
+            //public string Image { get; set; }
+            //public bool? HomFlag { get; set; }
+
+            //public virtual IEnumerable<PostViewModel> Posts { get; set; }
+            //       public DateTime? CreatedDate { get; set; }
+
+            //[MaxLength(256)]
+            //public string CreatedBy { get; set; }
+
+            //public DateTime? UpdatedDate { get; set; }
+
+            //[MaxLength(256)]
+            //public string UpdatedBy { get; set; }
+
+            //[MaxLength(256)]
+            //public string MetaKeyword { get; set; }
+
+            //[MaxLength(256)]
+            //public string MetaDescription { get; set; }
+
+            //public bool Status { get; set; }
+            //       public DateTime? CreatedDate { get; set; }
+
+            //[MaxLength(256)]
+            //public string CreatedBy { get; set; }
+
+            //public DateTime? UpdatedDate { get; set; }
+
+            //[MaxLength(256)]
+            //public string UpdatedBy { get; set; }
+
+            //[MaxLength(256)]
+            //public string MetaKeyword { get; set; }
+
+            //[MaxLength(256)]
+            //public string MetaDescription { get; set; }
+
+            //public bool Status { get; set; }
+            #endregion
+            productCategory.ID = productCategoryViewModel.ID;
+            productCategory.Name = productCategoryViewModel.Name;
+            productCategory.Alias = productCategoryViewModel.Alias;
+            productCategory.Description = productCategoryViewModel.Description;
+            productCategory.ParentID = productCategoryViewModel.ParentID;
+            productCategory.DisplayOrder = productCategoryViewModel.DisplayOrder;
+            productCategory.Image = productCategoryViewModel.Image;
+            productCategory.HomFlag = productCategoryViewModel.HomFlag;
+
+            productCategory.CreatedDate = productCategoryViewModel.CreatedDate;
+            productCategory.CreatedBy = productCategoryViewModel.CreatedBy;
+            productCategory.UpdatedDate = productCategoryViewModel.UpdatedDate;
+            productCategory.UpdatedBy = productCategoryViewModel.UpdatedBy;
+            productCategory.MetaKeyword = productCategoryViewModel.MetaKeyword;
+            productCategory.MetaDescription = productCategoryViewModel.MetaDescription;
+            productCategory.Status = productCategoryViewModel.Status;
+        }   
 
         public static void UpdatePost(this Post post, PostViewModel postViewModel)
         {
