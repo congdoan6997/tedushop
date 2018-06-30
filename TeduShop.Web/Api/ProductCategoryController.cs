@@ -63,6 +63,21 @@ namespace TeduShop.Web.Api
                 return httpRequestMessage.CreateResponse(HttpStatusCode.OK, list);
             });
         }
+
+        [Route("getbyid/{id:int}")]
+        [HttpGet]
+        public HttpResponseMessage GetById(HttpRequestMessage httpRequestMessage, int id)
+        {
+            return CreateHttpResponse(httpRequestMessage, () =>
+            {
+
+                var category = this._productCategoryService.GetById(id);
+
+                var categoryViewModel = Mapper.Map<ProductCategoryViewModel>(category);
+
+                return httpRequestMessage.CreateResponse(HttpStatusCode.OK, categoryViewModel);
+            });
+        }
         [Route("create")]
         [HttpPost]
         public HttpResponseMessage Create(HttpRequestMessage httpRequestMessage, ProductCategoryViewModel productCategoryViewModel)
@@ -89,6 +104,31 @@ namespace TeduShop.Web.Api
             });
         }
 
+        [Route("update")]
+        [HttpPut]
+        public HttpResponseMessage Update(HttpRequestMessage httpRequestMessage, ProductCategoryViewModel productCategoryViewModel)
+        {
+            return CreateHttpResponse(httpRequestMessage, () =>
+            {
+                HttpResponseMessage responseMessage = null;
+                if (!ModelState.IsValid)
+                {
+                    responseMessage = httpRequestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    var updateProductCategory = this._productCategoryService.GetById(productCategoryViewModel.ID);
+                    updateProductCategory.UpdateProductCategory(productCategoryViewModel);
+                    updateProductCategory.CreatedDate = DateTime.Now;
+                    this._productCategoryService.Update(updateProductCategory);
+                    this._productCategoryService.SaveChanges();
+
+                    responseMessage = httpRequestMessage.CreateResponse(HttpStatusCode.OK, updateProductCategory);
+                }
+
+                return responseMessage;
+            });
+        }
         //public HttpResponseMessage Post(HttpRequestMessage httpRequestMessage, ProductCategoryViewModel productCategoryViewModel)
         //{
         //    return CreateHttpResponse(httpRequestMessage, () =>
