@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Script.Serialization;
 using TeduShop.Model.Models;
 using TeduShop.Service;
 using TeduShop.Web.Infrastructure.Core;
@@ -55,7 +56,6 @@ namespace TeduShop.Web.Api
         {
             return CreateHttpResponse(httpRequestMessage, () =>
             {
-
                 var categories = this._productCategoryService.GetAll();
 
                 var list = Mapper.Map<List<ProductCategoryViewModel>>(categories);
@@ -70,7 +70,6 @@ namespace TeduShop.Web.Api
         {
             return CreateHttpResponse(httpRequestMessage, () =>
             {
-
                 var category = this._productCategoryService.GetById(id);
 
                 var categoryViewModel = Mapper.Map<ProductCategoryViewModel>(category);
@@ -78,6 +77,7 @@ namespace TeduShop.Web.Api
                 return httpRequestMessage.CreateResponse(HttpStatusCode.OK, categoryViewModel);
             });
         }
+
         [Route("create")]
         [HttpPost]
         public HttpResponseMessage Create(HttpRequestMessage httpRequestMessage, ProductCategoryViewModel productCategoryViewModel)
@@ -87,7 +87,7 @@ namespace TeduShop.Web.Api
                 HttpResponseMessage responseMessage = null;
                 if (!ModelState.IsValid)
                 {
-                   responseMessage = httpRequestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                    responseMessage = httpRequestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
                 else
                 {
@@ -129,13 +129,63 @@ namespace TeduShop.Web.Api
                 return responseMessage;
             });
         }
-        //public HttpResponseMessage Post(HttpRequestMessage httpRequestMessage, ProductCategoryViewModel productCategoryViewModel)
-        //{
-        //    return CreateHttpResponse(httpRequestMessage, () =>
-        //    {
-        //        ProductCategory productCategory = new ProductCategory();
-        //        productCategory.u
-        //    });
-        //}
+
+        [Route("delete")]
+        [HttpDelete]
+        [AllowAnonymous]
+        public HttpResponseMessage Delete(HttpRequestMessage httpRequestMessage, int id)
+        {
+            return CreateHttpResponse(httpRequestMessage, () =>
+            {
+                HttpResponseMessage responseMessage = null;
+                if (!ModelState.IsValid)
+                {
+                    responseMessage = httpRequestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    //var updateProductCategory = this._productCategoryService.GetById(id);
+                    //updateProductCategory.UpdateProductCategory(productCategoryViewModel);
+                    //updateProductCategory.CreatedDate = DateTime.Now;
+                    var item = this._productCategoryService.Delete(id);
+                    this._productCategoryService.SaveChanges();
+
+                    responseMessage = httpRequestMessage.CreateResponse(HttpStatusCode.OK, item);
+                }
+
+                return responseMessage;
+            });
+        }
+
+        [Route("deletemulti")]
+        [HttpDelete]
+        [AllowAnonymous]
+        public HttpResponseMessage Delete(HttpRequestMessage httpRequestMessage, string listId)
+        {
+            return CreateHttpResponse(httpRequestMessage, () =>
+            {
+                HttpResponseMessage responseMessage = null;
+                if (!ModelState.IsValid)
+                {
+                    responseMessage = httpRequestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    //var updateProductCategory = this._productCategoryService.GetById(id);
+                    //updateProductCategory.UpdateProductCategory(productCategoryViewModel);
+                    //updateProductCategory.CreatedDate = DateTime.Now;
+                    var items = new JavaScriptSerializer().Deserialize<List<int>>(listId);
+                    foreach (var item in items)
+                    {
+                        this._productCategoryService.Delete(item);
+                    }
+                    this._productCategoryService.SaveChanges();
+
+                    responseMessage = httpRequestMessage.CreateResponse(HttpStatusCode.OK, true);
+                }
+
+                return responseMessage;
+            });
+        }
     }
 }
