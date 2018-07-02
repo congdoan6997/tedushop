@@ -93,7 +93,7 @@ namespace TeduShop.Web.Api
                 {
                     var newProductCategory = new ProductCategory();
                     newProductCategory.UpdateProductCategory(productCategoryViewModel);
-
+                    newProductCategory.CreatedDate = DateTime.Now;
                     var category = this._productCategoryService.Add(newProductCategory);
                     this._productCategoryService.SaveChanges();
 
@@ -119,7 +119,7 @@ namespace TeduShop.Web.Api
                 {
                     var updateProductCategory = this._productCategoryService.GetById(productCategoryViewModel.ID);
                     updateProductCategory.UpdateProductCategory(productCategoryViewModel);
-                    updateProductCategory.CreatedDate = DateTime.Now;
+                    updateProductCategory.UpdatedDate = DateTime.Now;
                     this._productCategoryService.Update(updateProductCategory);
                     this._productCategoryService.SaveChanges();
 

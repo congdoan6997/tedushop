@@ -183,5 +183,36 @@ namespace TeduShop.Web.Infrastructure.Extensions
             post.MetaDescription = postViewModel.MetaDescription;
             post.Status = postViewModel.Status;
         }
+
+        public static void UpdateProduct(this Product product, ProductViewModel productViewModel)
+        {
+           
+            product.ID = productViewModel.ID;
+            product.Name = productViewModel.Name;
+            product.Alias = productViewModel.Alias;
+            product.CategoryID = productViewModel.CategoryID;
+            product.Description = productViewModel.Description;
+            //product.ParentID = productCategoryViewModel.ParentID;
+            //product.DisplayOrder = productCategoryViewModel.DisplayOrder;
+            product.Image = productViewModel.Image;
+            product.MoreImages = productViewModel.MoreImages;
+            product.Price = productViewModel.Price;
+            product.PromotionPrice = productViewModel.PromotionPrice;
+            product.Warranty = productViewModel.Warranty;
+            product.Content = productViewModel.Content;
+            product.HomeFlag = productViewModel.HomeFlag;
+            product.HotFlag = productViewModel.HotFlag;
+            product.ViewCount = productViewModel.ViewCount;
+
+            product.CreatedDate = productViewModel.CreatedDate;
+            product.CreatedBy = productViewModel.CreatedBy;
+            product.UpdatedDate = productViewModel.UpdatedDate;
+            product.UpdatedBy = productViewModel.UpdatedBy;
+            product.MetaKeyword = productViewModel.MetaKeyword;
+            product.MetaDescription = productViewModel.MetaDescription;
+            product.Status = productViewModel.Status;
+
+            //product.ProductCategory = productViewModel.ProductCategory;
+        }
     }
 }
