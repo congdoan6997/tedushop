@@ -41,6 +41,7 @@ namespace TeduShop.Web.Models
 
         public bool Status { get; set; }
 
+        public string Tags { get; set; }
         public virtual ProductCategoryViewModel ProductCategory { get; set; }
 
         public virtual IEnumerable<OrderDetailViewModel> OrderDetails { get; set; }

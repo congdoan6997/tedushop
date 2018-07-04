@@ -50,7 +50,7 @@ namespace TeduShop.Web.Api
             });
         }
 
-        [Route("Getallparents")]
+        [Route("getallparents")]
         [HttpGet]
         public HttpResponseMessage Get(HttpRequestMessage httpRequestMessage)
         {

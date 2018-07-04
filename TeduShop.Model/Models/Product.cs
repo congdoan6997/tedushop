@@ -36,6 +36,7 @@ namespace TeduShop.Model.Models
         public bool? HotFlag { get; set; }
         public int? ViewCount { get; set; }
 
+        public string Tags { get; set; }
         [ForeignKey("CategoryID")]
         public virtual ProductCategory ProductCategory { get; set; }
 
