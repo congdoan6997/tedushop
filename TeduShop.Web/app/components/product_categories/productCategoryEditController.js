@@ -6,9 +6,8 @@
     function productCategoryEditController($scope, apiService, notificationService, $state, $stateParams, commonService) {
         $scope.productCategory = {}
         $scope.parentCategories = [];
-        $scope.updateProductCategory = updateProductCategory;
-        $scope.getSeoTitle = getSeoTitle;
-        function getSeoTitle() {
+
+        $scope.getSeoTitle = function () {
             $scope.productCategory.Alias = commonService.getSeoTitle($scope.productCategory.Name);
         }
         function loadProductCategoryDetail() {
@@ -18,7 +17,7 @@
                 notificationService.displayError(error.data);
             });
         }
-        function updateProductCategory() {
+        $scope.updateProductCategory = function () {
             apiService.put('/api/productCategory/update', $scope.productCategory, function (result) {
                 notificationService.displaySuccess(result.data.Name + ' đã được cập nhật!');
                 $state.go('product_categories');

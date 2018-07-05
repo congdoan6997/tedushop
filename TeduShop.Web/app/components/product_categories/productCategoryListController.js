@@ -2,19 +2,16 @@
 
 (function (app) {
     app.controller('productCategoryListController', productCategoryListController);
-    productCategoryListController.$inject = ['$scope', 'apiService', 'notificationService', '$ngBootbox','$filter'];
-    function productCategoryListController($scope, apiService, notificationService, $ngBootbox,$filter) {
+    productCategoryListController.$inject = ['$scope', 'apiService', 'notificationService', '$ngBootbox', '$filter'];
+    function productCategoryListController($scope, apiService, notificationService, $ngBootbox, $filter) {
         $scope.productCategories = [];
         $scope.page = 0;
         $scope.pagesCount = 0;
         $scope.keyword = '';
-        $scope.search = search;
-        $scope.getProductCategories = getProductCategories;
-        $scope.deleteProductCategory = deleteProductCategory;
-        $scope.selectAll = selectAll;
+
         $scope.isAll = false;
-        $scope.deleteMulti = deleteMulti;
-        function deleteMulti() {
+
+        $scope.deleteMulti = function () {
             var listId = [];
             $.each($scope.selected, function (i, item) {
                 listId.push(item.ID);
@@ -32,7 +29,7 @@
                 notificationService.displayError("Xóa không thành công!");
             });
         }
-        function selectAll() {
+        $scope.selectAll = function () {
             if ($scope.isAll === false) {
                 angular.forEach($scope.productCategories, function (item) {
                     item.checked = true;
@@ -54,10 +51,10 @@
                 $('#btnDelete').attr('disabled', 'disabled');
             }
         }, true);
-        function search() {
+        $scope.search = function () {
             getProductCategories();
-        }        
-        function deleteProductCategory(id) {
+        }
+        $scope.deleteProductCategory = function (id) {
             $ngBootbox.confirm('Bạn muốn xóa không?').then(function () {
                 var config = {
                     params: {
@@ -74,7 +71,7 @@
                 notificationService.displayError('Xóa không thành công!');
             });
         }
-        function getProductCategories(page) {
+        $scope.getProductCategories = function (page) {
             page = page || 0;
             var config = {
                 params: {

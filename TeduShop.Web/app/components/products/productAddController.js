@@ -8,26 +8,38 @@
             CreatedDate: new Date(),
             Status: true
         };
-        //$scope.parentCategories = [];
-        $scope.addProduct = addProduct;
-        $scope.getSeoTitle = getSeoTitle;
+
         $scope.productCategories = [];
         $scope.ckeditorOptions = {
             language: 'vi',
             height: '200px'
         };
-        $scope.chooseImage = chooseImage;
-        function chooseImage() {
+
+        $scope.moreImages = [];
+
+        $scope.chooseMoreImages = function () {
             var finder = new CKFinder();
             finder.selectActionFunction = function (fileUrl) {
-                $scope.product.Image = fileUrl;
+                $scope.$apply(function () {
+                    $scope.moreImages.push(fileUrl);
+                })
             }
             finder.popup();
         }
-        function getSeoTitle() {
+        $scope.chooseImage = function () {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $scope.$apply(function () {
+                    $scope.product.Image = fileUrl;
+                })
+            }
+            finder.popup();
+        }
+        $scope.getSeoTitle = function () {
             $scope.product.Alias = commonService.getSeoTitle($scope.product.Name);
         }
-        function addProduct() {
+        $scope.addProduct = function () {
+            $scope.product.MoreImages = JSON.stringify($scope.moreImages);
             apiService.post('/api/product/create', $scope.product, function (result) {
                 notificationService.displaySuccess(result.data.Name + ' đã thêm mới!');
                 $state.go('products');

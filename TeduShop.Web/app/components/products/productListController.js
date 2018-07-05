@@ -6,13 +6,10 @@
         $scope.page = 0;
         $scope.pagesCount = 0;
         $scope.keyword = '';
-        $scope.search = search;
-        $scope.getProducts = getProducts;
-        $scope.deleteProduct = deleteProduct;
-        $scope.selectAll = selectAll;
+
         $scope.isAll = false;
-        $scope.deleteMulti = deleteMulti;
-        function deleteMulti() {
+
+        $scope.deleteMulti = function () {
             var listId = [];
             $.each($scope.selected, function (i, item) {
                 listId.push(item.ID);
@@ -30,7 +27,7 @@
                 notificationService.displayError("Xóa không thành công!");
             });
         }
-        function selectAll() {
+        $scope.selectAll = function () {
             if ($scope.isAll === false) {
                 angular.forEach($scope.products, function (item) {
                     item.checked = true;
@@ -52,10 +49,10 @@
                 $('#btnDelete').attr('disabled', 'disabled');
             }
         }, true);
-        function search() {
+        $scope.search = function () {
             getProducts();
         }
-        function deleteProduct(id) {
+        $scope.deleteProduct = function (id) {
             $ngBootbox.confirm('Bạn muốn xóa không?').then(function () {
                 var config = {
                     params: {
@@ -72,7 +69,7 @@
                 notificationService.displayError('Xóa không thành công!');
             });
         }
-        function getProducts(page) {
+        $scope.getProducts = function (page) {
             page = page || 0;
             var config = {
                 params: {
