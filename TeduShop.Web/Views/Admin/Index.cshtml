@@ -13,6 +13,7 @@
     <!-- Bootstrap 3.3.7 -->
     @*<link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">*@
     <link href="~/Assets/admin/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Assets/admin/libs/angular-loading-bar/build/loading-bar.css" rel="stylesheet" />
     <!-- Font Awesome -->
     @*<link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">*@
     <link href="~/Assets/admin/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
@@ -39,10 +40,9 @@
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-blue sidebar-mini" style="height: auto; min-height: 100%;" ng-app="tedushop" ng-controller="rootController">
-    <div  ui-view>    </div>
+<body class="hold-transition skin-blue sidebar-mini" ng-app="tedushop" ng-controller="rootController">
+    <div ui-view>    </div>
     <!-- Site wrapper -->
-
     <!-- ./wrapper -->
     <!-- jQuery 3 -->
     @*<script src="../../bower_components/jquery/dist/jquery.min.js"></script>*@
@@ -73,12 +73,17 @@
     <script src="~/Assets/admin/libs/ckfinder/ckfinder.js"></script>
     <script src="~/Assets/admin/libs/ngBootbox/ngBootbox.js"></script>
     <script src="~/Assets/admin/libs/ng-ckeditor/ng-ckeditor.js"></script>
+    <script src="~/Assets/admin/libs/angular-local-storage/dist/angular-local-storage.js"></script>
+    <script src="~/Assets/admin/libs/angular-loading-bar/build/loading-bar.js"></script>
 
     <script src="~/app/shared/modules/tedushop.common.js"></script>
     <script src="~/app/shared/filters/statusFilter.js"></script>
     <script src="~/app/shared/services/apiService.js"></script>
     <script src="~/app/shared/services/notificationService.js"></script>
     <script src="~/app/shared/services/commonService.js"></script>
+    <script src="~/app/shared/services/authData.js"></script>
+    <script src="~/app/shared/services/authenticationService.js"></script>
+    <script src="~/app/shared/services/loginService.js"></script>
 
     <script src="~/app/shared/directives/pagerDirective.js"></script>
 

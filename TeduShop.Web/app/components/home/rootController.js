@@ -1,11 +1,14 @@
 ﻿(function (app) {
-    app.controller('rootController', rootController);
+    app.controller('rootController', ['$scope', 'loginService', '$state', 'authData', 'authenticationService',
+        function ($scope, loginService, $state, authData, authenticationService) {
+            $scope.logOut = function () {
+                loginService.logOut();
+                $state.go('login');
+            };
+            $scope.authentication = authData.authenticationData;
 
-    rootController.$inject = ['$scope', '$state'];
+            authenticationService.validateRequest();
+    }]);
 
-    function rootController($scope, $state) {
-        $scope.logout = function () {
-            $state.go('login');
-        }
-    }
+
 })(angular.module('tedushop'))

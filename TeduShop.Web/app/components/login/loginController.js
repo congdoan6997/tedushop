@@ -1,10 +1,22 @@
-﻿(function (app) {
-    app.controller('loginController', loginController);
+﻿/// <reference path="../../../assets/admin/libs/angular/angular.js" />
+(function (app) {
+    app.controller('loginController', ['$scope', 'loginService', '$injector', 'notificationService',
+        function ($scope, loginService, $injector, notificationService) {
+            $scope.loginData = {
+                userName: "",
+                password: ""
+            };
 
-    loginController.$inject = ['$scope','$state'];
-    function loginController($scope, $state) {
-        $scope.loginSubmit = function () {
-            $state.go('home');
-        }
-    }
-})(angular.module('tedushop'))
+            $scope.loginSubmit = function () {
+                loginService.login($scope.loginData.userName, $scope.loginData.password).then(function (response) {
+                    if (response != null && response.error != undefined) {
+                        notificationService.displayError("Đăng nhập thất bại");
+                    } else {
+                        var stateService = $injector.get('$state');
+                        stateService.go('home');
+                    }
+                });
+            };
+
+        }]);
+})(angular.module('tedushop'));
