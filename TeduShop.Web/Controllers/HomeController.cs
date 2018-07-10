@@ -26,5 +26,15 @@ namespace TeduShop.Web.Controllers
 
             return View();
         }
+        [ChildActionOnly]
+        public ActionResult Header()
+        {
+            return PartialView();
+        }
+        [ChildActionOnly]
+        public ActionResult Footer()
+        {
+            return PartialView();
+        }
     }
 }
