@@ -1,27 +1,24 @@
 ﻿namespace TeduShop.Data.Migrations
 {
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
-    using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
     using TeduShop.Model.Models;
+    using TeduShop.Data;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<TeduShop.Data.TeduShopDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<TeduShopDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(TeduShop.Data.TeduShopDbContext context)
+        protected override void Seed(TeduShopDbContext context)
         {
             CreateProductCategorySample(context);
             //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data.
             //var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new TeduShopDbContext()));
             //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new TeduShopDbContext()));
@@ -33,7 +30,7 @@
             //    EmailConfirmed = true,
             //    Birthday = DateTime.Now,
             //    FullName = "Bui Cong Doan",
-              
+
             //};
 
             //manager.Create(user, "123654$");
@@ -46,9 +43,9 @@
             //var adminUser = manager.FindByEmail("congdoan6997@gmail.com");
 
             //manager.AddToRoles(adminUser.Id, new string[] { "Admin", "User" });
-
         }
-        private void CreateProductCategorySample(TeduShop.Data.TeduShopDbContext context)
+
+        private void CreateProductCategorySample(TeduShopDbContext context)
         {
             if (context.ProductCategories.Count() == 0)
             {
@@ -62,7 +59,13 @@
                 context.ProductCategories.AddRange(listProductCategory);
                 context.SaveChanges();
             }
-
         }
+
+        //private void CreateFooter(TeduShopDbContext context)
+        //{
+        //    if (context.Footers.Count() == 0)
+        //    {
+        //    }
+        //}
     }
 }
