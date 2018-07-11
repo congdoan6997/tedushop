@@ -24,7 +24,7 @@
             };
             apiService.del('/api/productcategory/deletemulti', config, function (result) {
                 notificationService.displaySuccess("Xoá thành công!");
-                search();
+                $scope.search();
             }, function (error) {
                 notificationService.displayError("Xóa không thành công!");
             });

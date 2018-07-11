@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TeduShop.Common;
 using TeduShop.Data.Infrastructure;
 using TeduShop.Data.Repositories;
@@ -15,6 +16,9 @@ namespace TeduShop.Service
         Product Delete(int id);
 
         IEnumerable<Product> GetAll();
+
+        IEnumerable<Product> GetLastest(int top);
+        IEnumerable<Product> GetHotProduct(int top);
 
         //IEnumerable<Product> GetAllByParentId(int parentId);
 
@@ -99,6 +103,16 @@ namespace TeduShop.Service
         public Product GetById(int id)
         {
             return this._productRepository.GetSingleById(id);
+        }
+
+        public IEnumerable<Product> GetHotProduct(int top)
+        {
+            return this._productRepository.GetMulti(x => x.Status && x.HotFlag == true).OrderByDescending(x => x.CreatedDate).Take(top);
+        }
+
+        public IEnumerable<Product> GetLastest(int top)
+        {
+            return this._productRepository.GetMulti(x => x.Status).OrderByDescending(x => x.CreatedDate).Take(top);
         }
 
         public void SaveChanges()

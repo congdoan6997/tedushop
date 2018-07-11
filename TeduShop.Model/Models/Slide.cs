@@ -29,5 +29,8 @@ namespace TeduShop.Model.Models
        // [Required]
         public bool Status { get; set; }
 
+        public string Content { get; set; }
+
+
     }
 }

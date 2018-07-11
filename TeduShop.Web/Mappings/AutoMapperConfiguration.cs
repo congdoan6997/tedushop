@@ -26,6 +26,7 @@ namespace TeduShop.Web.Mappings
             Mapper.CreateMap<Order, OrderViewModel>();
             Mapper.CreateMap<OrderDetail, OrderDetailViewModel>();
             Mapper.CreateMap<Footer, FooterViewModel>();
+            Mapper.CreateMap<Slide, SlideViewModel>();
 #pragma warning restore CS0618 // Type or member is obsolete
         }
     }
