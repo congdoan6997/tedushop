@@ -18,15 +18,18 @@ namespace TeduShop.Service
         IEnumerable<Product> GetAll();
 
         IEnumerable<Product> GetLastest(int top);
+
         IEnumerable<Product> GetHotProduct(int top);
 
         //IEnumerable<Product> GetAllByParentId(int parentId);
-        IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId,int page,int pageSize, out int totalRow);
+        IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize, string sort, out int totalRow);
+
+        IEnumerable<Product> GetListProductByName(string keyword, int page, int pageSize, string sort, out int totalRow);
 
         IEnumerable<Product> GetAll(string keyword);
 
         Product GetById(int id);
-
+        List<string> GetListProductByName(string keyword);
         void SaveChanges();
     }
 
@@ -116,11 +119,21 @@ namespace TeduShop.Service
             return this._productRepository.GetMulti(x => x.Status).OrderByDescending(x => x.CreatedDate).Take(top);
         }
 
-        public IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize, out int totalRow )
+        public IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize, string sort, out int totalRow)
         {
             var query = this._productRepository.GetMulti(x => x.Status && x.CategoryID == categoryId);
+            switch (sort)
+            {
+                case "new": query.OrderByDescending(x => x.CreatedDate); break;
+                case "popular": query.OrderByDescending(x => x.ViewCount); break;
+                case "discount": query.OrderByDescending(x => x.PromotionPrice.HasValue); break;
+                case "price": query.OrderBy(x => x.Price); break;
+
+                default:
+                    break;
+            };
             totalRow = query.Count();
-            return query.Skip((page - 1)*pageSize).Take(pageSize);
+            return query.Skip((page - 1) * pageSize).Take(pageSize);
         }
 
         public void SaveChanges()
@@ -160,6 +173,28 @@ namespace TeduShop.Service
             }
             //this._unitOfWork.Commit();
             //return item;
+        }
+
+        public List<string> GetListProductByName(string keyword)
+        {
+            return this._productRepository.GetMulti(x => x.Status && x.Name.Contains(keyword)).Select(x => x.Name).ToList<string>();
+        }
+
+        public IEnumerable<Product> GetListProductByName(string keyword, int page, int pageSize, string sort, out int totalRow)
+        {
+            var query = this._productRepository.GetMulti(x => x.Status && x.Name.Contains(keyword));
+            switch (sort)
+            {
+                case "new": query.OrderByDescending(x => x.CreatedDate); break;
+                case "popular": query.OrderByDescending(x => x.ViewCount); break;
+                case "discount": query.OrderByDescending(x => x.PromotionPrice.HasValue); break;
+                case "price": query.OrderBy(x => x.Price); break;
+
+                default:
+                    break;
+            };
+            totalRow = query.Count();
+            return query.Skip((page - 1) * pageSize).Take(pageSize);
         }
     }
 }

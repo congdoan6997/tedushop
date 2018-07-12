@@ -17,10 +17,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!--fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
     <!--//fonts-->
-    <script src="/Assets/client/js/jquery.min.js"></script>
+
+    <link href="~/Assets/admin/libs/jquery-ui/themes/base/all.css" rel="stylesheet" />
     <!--script-->
 
     <link href="~/Assets/client/fontawesome-free-5.1.0-web/css/all.css" rel="stylesheet" />
+    @*<link href="~/Assets/admin/libs/jquery-ui/themes/base/jquery-ui.css" rel="stylesheet" />*@
 </head>
 <body>
     <!--header-->
@@ -34,7 +36,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     <!---->
     @{ Html.RenderAction("Footer", "Home");}
-
-    @RenderSection("footerJS",required:false)
+    <script src="~/Assets/client/js/jquery.min.js"></script>
+    <script src="~/Assets/admin/libs/jquery-ui/jquery-ui.js"></script>
+    <script src="~/Assets/client/js/common.js"></script>
+    @RenderSection("footerJS", required: false)
 </body>
 </html>

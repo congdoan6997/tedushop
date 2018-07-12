@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TeduShop.Data.Infrastructure;
 using TeduShop.Data.Repositories;
 using TeduShop.Model.Models;
@@ -20,6 +21,8 @@ namespace TeduShop.Service
         IEnumerable<ProductCategory> GetAll(string keyword);
 
         ProductCategory GetById(int id);
+
+            
 
         void SaveChanges();
     }
@@ -68,6 +71,8 @@ namespace TeduShop.Service
         {
             return this._productCategoryRepository.GetSingleById(id);
         }
+
+
 
         public void SaveChanges()
         {
