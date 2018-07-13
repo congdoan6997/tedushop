@@ -27,6 +27,8 @@ namespace TeduShop.Service
         IEnumerable<Product> GetListProductByName(string keyword, int page, int pageSize, string sort, out int totalRow);
 
         IEnumerable<Product> GetAll(string keyword);
+        IEnumerable<Product> GetReatedProducts(int id, int top);
+
 
         Product GetById(int id);
         List<string> GetListProductByName(string keyword);
@@ -195,6 +197,13 @@ namespace TeduShop.Service
             };
             totalRow = query.Count();
             return query.Skip((page - 1) * pageSize).Take(pageSize);
+        }
+
+        public IEnumerable<Product> GetReatedProducts(int id, int top)
+        {
+            var produc = _productRepository.GetSingleById(id);
+            
+            return _productRepository.GetMulti(x => x.Status&& x.ID != id  && x.CategoryID == produc.CategoryID).OrderByDescending(x => x.CreatedDate).Take(top);
         }
     }
 }

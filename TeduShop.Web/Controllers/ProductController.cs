@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using TeduShop.Common;
 using TeduShop.Service;
 using TeduShop.Web.Infrastructure.Core;
@@ -23,7 +24,13 @@ namespace TeduShop.Web.Controllers
         // GET: Product
         public ActionResult Detail(int id)
         {
-            return View();
+            var product = this._productService.GetById(id);
+            var model = Mapper.Map<ProductViewModel>(product);
+            var relatedProduct = this._productService.GetReatedProducts(id , 6);
+            ViewBag.RelatedProducts = Mapper.Map<IEnumerable<ProductViewModel>>(relatedProduct);
+            List<string> listImages = new JavaScriptSerializer().Deserialize<List<string>>(model.MoreImages);
+            ViewBag.MoreImages = listImages;
+            return View(model);
         }
 
         public ActionResult Category(int id, int page = 1, string sort = "")
