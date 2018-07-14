@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/Layouts.cshtml";
     var relatedProducts = (IEnumerable<TeduShop.Web.Models.ProductViewModel>)ViewBag.RelatedProducts;
     var listImages = (List<string>)ViewBag.MoreImages;
+    var listTags = (IEnumerable<TeduShop.Web.Models.TagViewModel>)ViewBag.Tags;
 }
 @section footerJS{
     <script type="text/javascript">
@@ -86,8 +87,21 @@
             </div>
             <h6>@Model.Quantity sản phẩm trong kho</h6>
             <p>@Model.Description</p>
+
             <div class="share">
-                <h5>Share Product :</h5>
+                <h5>Tags :</h5>
+                <ul class="share_nav">
+                    @foreach (var tag in listTags)
+                    {
+                        <li><a href="/tag/@(tag.ID).html">@tag.Name</a></li>
+                    }
+
+
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+            <div class="share">
+                <h5>Chia sẻ :</h5>
                 <ul class="share_nav">
                     <li><a href="#"><img src="/Assets/client/images/facebook.png" title="facebook"></a></li>
                     <li><a href="#"><img src="/Assets/client/images/twitter.png" title="Twiiter"></a></li>

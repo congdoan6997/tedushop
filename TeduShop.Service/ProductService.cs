@@ -26,12 +26,21 @@ namespace TeduShop.Service
 
         IEnumerable<Product> GetListProductByName(string keyword, int page, int pageSize, string sort, out int totalRow);
 
+        IEnumerable<Product> GetListProductByTag(string tagId, int page, int pageSize,  out int totalRow);
+
+        List<string> GetListProductByName(string keyword);
+
         IEnumerable<Product> GetAll(string keyword);
+
+        IEnumerable<Tag> GetTagsByProductId(int id);
+
+        void IncreaseView(int id);
+
         IEnumerable<Product> GetReatedProducts(int id, int top);
 
-
         Product GetById(int id);
-        List<string> GetListProductByName(string keyword);
+
+        Tag GetTag(string tagId);
         void SaveChanges();
     }
 
@@ -202,8 +211,37 @@ namespace TeduShop.Service
         public IEnumerable<Product> GetReatedProducts(int id, int top)
         {
             var produc = _productRepository.GetSingleById(id);
-            
-            return _productRepository.GetMulti(x => x.Status&& x.ID != id  && x.CategoryID == produc.CategoryID).OrderByDescending(x => x.CreatedDate).Take(top);
+
+            return _productRepository.GetMulti(x => x.Status && x.ID != id && x.CategoryID == produc.CategoryID).OrderByDescending(x => x.CreatedDate).Take(top);
+        }
+
+        public IEnumerable<Tag> GetTagsByProductId(int id)
+        {
+            return this._productTagRepository.GetMulti(x => x.ProductID == id, new string[] { "Tag" }).Select(y => y.Tag);
+        }
+
+        public void IncreaseView(int id)
+        {
+            var product = this._productRepository.GetSingleById(id);
+            if (product.ViewCount.HasValue)
+            {
+                product.ViewCount += 1;
+            }
+            else
+            {
+                product.ViewCount = 1;
+            }
+        }
+
+        public IEnumerable<Product> GetListProductByTag(string tagId, int page, int pageSize,  out int totalRow)
+        {
+            return this._productRepository.GetListProductByTag(tagId, page, pageSize, out totalRow);
+
+        }
+
+        public Tag GetTag(string tagId)
+        {
+            return _tagRepository.GetSingleByCondition(x => x.ID == tagId);
         }
     }
 }

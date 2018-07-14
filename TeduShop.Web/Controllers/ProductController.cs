@@ -26,10 +26,11 @@ namespace TeduShop.Web.Controllers
         {
             var product = this._productService.GetById(id);
             var model = Mapper.Map<ProductViewModel>(product);
-            var relatedProduct = this._productService.GetReatedProducts(id , 6);
+            var relatedProduct = this._productService.GetReatedProducts(id, 6);
             ViewBag.RelatedProducts = Mapper.Map<IEnumerable<ProductViewModel>>(relatedProduct);
             List<string> listImages = new JavaScriptSerializer().Deserialize<List<string>>(model.MoreImages);
             ViewBag.MoreImages = listImages;
+            ViewBag.Tags = Mapper.Map<IEnumerable<TagViewModel>>(this._productService.GetTagsByProductId(id));
             return View(model);
         }
 
@@ -54,6 +55,7 @@ namespace TeduShop.Web.Controllers
 
             return View(paginationSet);
         }
+
         public ActionResult Search(string keyword, int page = 1, string sort = "")
         {
             var pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
@@ -75,6 +77,7 @@ namespace TeduShop.Web.Controllers
 
             return View(paginationSet);
         }
+
         public JsonResult GetListProductByName(string keyword)
         {
             var model = this._productService.GetListProductByName(keyword);
@@ -82,6 +85,28 @@ namespace TeduShop.Web.Controllers
             {
                 data = model
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ListByTag(string tagId, int page = 1)
+        {
+            var pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
+            int totalRow = 0;
+            var list = this._productService.GetListProductByTag(tagId, page, pageSize, out totalRow);
+            var listViewModel = Mapper.Map<IEnumerable<ProductViewModel>>(list);
+
+            //var category = this._productCategoryService.GetById(id);
+            ViewBag.Tag = Mapper.Map<TagViewModel>(_productService.GetTag(tagId));
+
+            var paginationSet = new PaginationSet<ProductViewModel>()
+            {
+                Items = listViewModel,
+                TotalCount = totalRow,
+                Page = page,
+                MaxPage = int.Parse(ConfigHelper.GetByKey("MaxPage")),
+                TotalPages = (int)Math.Ceiling((double)totalRow / pageSize)
+            };
+
+            return View(paginationSet);
         }
     }
 }

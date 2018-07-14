@@ -8,6 +8,13 @@ namespace TeduShop.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            routes.MapRoute(
+                name: "Tag",
+                url: "tag/{tagId}.html",
+                defaults: new { controller = "Product", action = "ListByTag", tagId = UrlParameter.Optional },
+                namespaces: new string[] { "TeduShop.Web.Controllers" }
+                );
             routes.MapRoute(
                 name: "Search",
                 url: "tim-kiem.html",
