@@ -19,6 +19,7 @@ namespace TeduShop.Web.Controllers
             this._productService = productService;
         }
 
+        [OutputCache(Duration =60)]
         public ActionResult Index()
         {
             var slides = this._commonService.GetSlides();
@@ -36,19 +37,7 @@ namespace TeduShop.Web.Controllers
             return View(homeViewModel);
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
 
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
 
         [ChildActionOnly]
         public ActionResult Header()
@@ -57,6 +46,7 @@ namespace TeduShop.Web.Controllers
         }
 
         [ChildActionOnly]
+        [OutputCache(Duration =3600)]
         public ActionResult Footer()
         {
             var model = this._commonService.GetFooter();
@@ -65,6 +55,7 @@ namespace TeduShop.Web.Controllers
         }
 
         [ChildActionOnly]
+        [OutputCache( Duration =3600)]
         public ActionResult Category()
         {
             var model = this._productCategoryService.GetAll();
