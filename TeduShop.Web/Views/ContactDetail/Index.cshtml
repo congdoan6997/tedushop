@@ -1,0 +1,66 @@
+﻿@model TeduShop.Web.Models.ContactDetailViewModel
+
+@{
+    ViewBag.Title = "Thông tin liên hệ";
+    Layout = "~/Views/Shared/Layouts.cshtml";
+}
+@section headerCss{
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+        #map {
+            height: 600px;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+}
+@section footerJS{
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5DMdKX4wELmZvtcVWyDs4c23oIrndDpA"></script>
+    <script src="~/Assets/client/js/controllers/contact.js"></script>
+}
+<input type="hidden" id="hidAdress" value="@Model.Name <br/>Điện thoại: @Model.Phone <br/>Địa chỉ: @Model.Address" />
+<input type="hidden" id="hidLat" value="@Model.Lat" />
+<input type="hidden" id="hidLng" value="@Model.Lng" />
+<input type="hidden" id="hidName" value="@Model.Name" />
+<div class="main">
+    <div class="reservation_top">
+        <div class=" contact_right">
+            <h3>Thông tin liên hệ</h3>
+            <address class="address">
+                <p>
+                    9870 St Vincent Place,
+                    <br>Glasgow, DC 45 Fr 45.
+                </p>
+                <dl>
+                    <dt> </dt>
+                    <dd>
+                        Điện thoại:
+                        <span> @Model.Phone</span>
+                    </dd>
+
+                    <dd>
+                        E-mail:&nbsp;
+                        <a href="mailto@(Model.Email)">@(Model.Email)</a>
+                    </dd>
+                </dl>
+            </address>
+            <div id="map"></div>
+            <div class="contact-form">
+                <form method="post" action="contact-post.html">
+                    <input type="text" class="textbox" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
+                    <input type="text" class="textbox" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}">
+                    <textarea value="Message" onfocus="this.value= '';" onblur="if (this.value == '') {this.value = 'Message';}">Message</textarea>
+                    <input type="submit" value="Send">
+                    <div class="clearfix"> </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -18,6 +18,7 @@
             CreateProductCategorySample(context);
             CreateSlide(context);
             CreatePage(context);
+            CreateContactDetail(context);
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method
@@ -101,6 +102,26 @@
                     Status = true
                 };
                 context.Pages.Add(page);
+                context.SaveChanges();
+            }
+        }
+
+        private void CreateContactDetail(TeduShopDbContext context)
+        {
+            if (context.ContactDetails.Count() == 0)
+            {
+                var contactdetail = new ContactDetail()
+                {
+                    Name = "Shop thời trang TEDU",
+                    Status = true,
+                    Address = "Hưng Thái - Ninh Giang - Hải Dương",
+                    Email = "Congdoan6997@gmail.com",
+                    Lat = 20.7228056,
+                    Lng = 106.294812,
+                    Phone = "01695432166",
+                    Website = "http://tedu.com.vn"
+                };
+                context.ContactDetails.Add(contactdetail);
                 context.SaveChanges();
             }
         }
