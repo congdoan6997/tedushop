@@ -1,4 +1,5 @@
-﻿using TeduShop.Model.Models;
+﻿using System;
+using TeduShop.Model.Models;
 using TeduShop.Web.Models;
 
 namespace TeduShop.Web.Infrastructure.Extensions
@@ -57,7 +58,9 @@ namespace TeduShop.Web.Infrastructure.Extensions
             //public string MetaDescription { get; set; }
 
             //public bool Status { get; set; }
-# endregion
+
+            #endregion properties
+
             postCategory.ID = postCategoryViewModel.ID;
             postCategory.Name = postCategoryViewModel.Name;
             postCategory.Alias = postCategoryViewModel.Alias;
@@ -128,7 +131,9 @@ namespace TeduShop.Web.Infrastructure.Extensions
             //public string MetaDescription { get; set; }
 
             //public bool Status { get; set; }
-            #endregion
+
+            #endregion properties
+
             productCategory.ID = productCategoryViewModel.ID;
             productCategory.Name = productCategoryViewModel.Name;
             productCategory.Alias = productCategoryViewModel.Alias;
@@ -145,7 +150,7 @@ namespace TeduShop.Web.Infrastructure.Extensions
             productCategory.MetaKeyword = productCategoryViewModel.MetaKeyword;
             productCategory.MetaDescription = productCategoryViewModel.MetaDescription;
             productCategory.Status = productCategoryViewModel.Status;
-        }   
+        }
 
         public static void UpdatePost(this Post post, PostViewModel postViewModel)
         {
@@ -186,7 +191,6 @@ namespace TeduShop.Web.Infrastructure.Extensions
 
         public static void UpdateProduct(this Product product, ProductViewModel productViewModel)
         {
-           
             product.ID = productViewModel.ID;
             product.Name = productViewModel.Name;
             product.Alias = productViewModel.Alias;
@@ -216,6 +220,16 @@ namespace TeduShop.Web.Infrastructure.Extensions
             product.Quantity = productViewModel.Quantity;
 
             //product.ProductCategory = productViewModel.ProductCategory;
+        }
+
+        public static void UpdateFeedback(this Feedback feedback, FeedbackViewModel feedbackViewModel)
+        {
+            feedback.ID = feedbackViewModel.ID;
+            feedback.Name = feedbackViewModel.Name;
+            feedback.Message = feedbackViewModel.Message;
+            feedback.Status =true;
+            feedback.CreatedDate = DateTime.Now; ;
+            feedback.Email = feedbackViewModel.Email;
         }
     }
 }

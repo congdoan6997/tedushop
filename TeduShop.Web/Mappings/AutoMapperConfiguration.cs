@@ -29,6 +29,7 @@ namespace TeduShop.Web.Mappings
             Mapper.CreateMap<Slide, SlideViewModel>();
             Mapper.CreateMap<Page, PageViewModel>();
             Mapper.CreateMap<ContactDetail, ContactDetailViewModel>();
+            Mapper.CreateMap<Feedback, FeedbackViewModel>();
 #pragma warning restore CS0618 // Type or member is obsolete
         }
     }
