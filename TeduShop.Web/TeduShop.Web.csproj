@@ -245,6 +245,7 @@
     <Compile Include="Models\ProductCategoryViewModel.cs" />
     <Compile Include="Models\ProductTagViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
+    <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\SlideViewModel.cs" />
     <Compile Include="Models\TagViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -6065,6 +6066,7 @@
     <Content Include="Assets\admin\libs\toastr\toastr.min.css" />
     <Content Include="Assets\admin\libs\toastr\toastr.min.js" />
     <Content Include="Assets\client\css\bootstrap.css" />
+    <Content Include="Assets\client\css\custom.css" />
     <Content Include="Assets\client\css\etalage.css" />
     <Content Include="Assets\client\css\form.css" />
     <Content Include="Assets\client\css\style.css" />
@@ -7413,6 +7415,7 @@
     <Content Include="Assets\client\js\jquery.min.js" />
     <Content Include="Assets\client\js\jquery.wmuSlider.js" />
     <Content Include="Assets\client\template\contact_template.html" />
+    <Content Include="Assets\client\template\newuser.html" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
@@ -7441,7 +7444,6 @@
     <Folder Include="UploadedFiles\files\" />
     <Folder Include="UploadedFiles\flash\" />
     <Folder Include="Views\About\" />
-    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -7734,7 +7736,9 @@
     <Content Include="Assets\admin\libs\angular-local-storage\README.md" />
     <Content Include="Assets\client\images\Thumbs.db" />
     <Content Include="AppSettings.config" />
-    <Content Include="ConnectionStrings.config" />
+    <Content Include="ConnectionStrings.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Assets\client\fontawesome-free-5.1.0-web\less\fa-brands.less" />
     <Content Include="Assets\client\fontawesome-free-5.1.0-web\less\fa-regular.less" />
     <Content Include="Assets\client\fontawesome-free-5.1.0-web\less\fa-solid.less" />
@@ -7811,6 +7815,7 @@
     <Content Include="Views\Product\ListByTag.cshtml" />
     <Content Include="Views\Page\Index.cshtml" />
     <Content Include="Views\ContactDetail\Index.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TeduShop.Common\TeduShop.Common.csproj">

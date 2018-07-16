@@ -1,5 +1,8 @@
 ﻿namespace TeduShop.Data.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using System;
     using System.Collections.Generic;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -68,6 +71,10 @@
         //{
         //    if (context.Footers.Count() == 0)
         //    {
+        //        var footer = new Footer()
+        //        {
+        //             Content = @""
+        //        }
         //    }
         //}
         private void CreateSlide(TeduShopDbContext context)

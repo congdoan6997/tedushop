@@ -67,6 +67,6 @@ namespace TeduShop.Web.Controllers
             return Mapper.Map<ContactDetailViewModel>(model);
         }
 
-        private
+        
     }
 }

@@ -1,0 +1,100 @@
+﻿@model TeduShop.Web.Models.RegisterViewModel
+@using BotDetect.Web.Mvc;
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/Layouts.cshtml";
+}
+@section headerCss{
+    <link href="~/Assets/client/css/custom.css" rel="stylesheet" />
+    <link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl"
+          rel="stylesheet" type="text/css" />
+}
+<div class="register">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken();
+        @Html.ValidationSummary(false, "", new { @class = "error" })
+        if (TempData["SuccessMsg"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                <strong>Chúc mừng bạn! </strong> đã đăng ký thành công.
+                <br />Vui lòng click vào <a href="/dang-nhap.html">đây</a> để đăng nhập
+            </div>
+        }
+            <div class="register-top-grid">
+                <h3>Thông tin cá nhân</h3>
+                <div class="mation">
+                    <span>
+                        Họ tên
+                        <label>*</label>
+                    </span>
+                    @Html.TextBoxFor(model => model.FullName, new { @class = "textbox" })
+
+                    <span>
+                        Email
+                        <label>*</label>
+                    </span>
+                    @Html.TextBoxFor(model => model.Email, new { @class = "textbox" })
+
+                    <span>
+                        Địa chỉ
+                        <label>*</label>
+                    </span>
+                    @Html.TextBoxFor(model => model.Address, new { @class = "textbox" })
+
+                    <span>
+                        Số điện thoại
+                        <label>*</label>
+                    </span>
+                    @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "textbox" })
+
+                    <span>
+                        Tài khoản
+                        <label>*</label>
+                    </span>
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "textbox" })
+
+                    <span>
+                        Mật khẩu
+                        <label>*</label>
+                    </span>
+                    @Html.PasswordFor(model => model.Password)
+                    @{MvcCaptcha registerCaptcha = new MvcCaptcha("registerCaptcha");
+                    }
+                    @Html.Captcha(registerCaptcha)
+                    @Html.TextBox("CaptchaCode")
+
+                </div>
+                <div class="clearfix"> </div>
+
+                <input type="submit" value="Đăng ký">
+                @*<a class="news-letter" href="#">
+            <label class="checkbox">
+                <input type="checkbox" name="checkbox" checked="">
+                <i> </i>Sign Up
+            </label>
+        </a>*@
+            </div>
+        @*<div class="register-bottom-grid">
+                <h3>Thông tin đăng nhập</h3>
+                <div class="mation">
+                    <span>
+                        Mật khẩu
+                        <label>*</label>
+                    </span>
+                    @Html.TextBoxFor(model => model.FullName, new { @class = "textbox" })
+                    <span>
+                        Confirm Password
+                        <label>*</label>
+                    </span>
+                    <input type="text">
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+            <div class="register-but">
+
+                <div class="clearfix"> </div>
+            </div>*@
+
+    }
+</div>

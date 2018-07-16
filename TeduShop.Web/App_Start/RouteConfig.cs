@@ -12,6 +12,13 @@ namespace TeduShop.Web
             // BotDetect requests must not be routed
             routes.IgnoreRoute("{*botdetect}", new { botdetect = @"(.*)BotDetectCaptcha\.ashx" });
 
+
+            routes.MapRoute(
+                name: "register",
+                url: "dang-ky.html",
+                defaults: new { controller = "Account", action = "Register", id = UrlParameter.Optional },
+                namespaces: new string[] { "TeduShop.Web.Controllers" }
+                );
             routes.MapRoute(
                 name: "Contact",
                 url: "lien-he.html",
